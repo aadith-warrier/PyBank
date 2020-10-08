@@ -1,0 +1,468 @@
+ScreenManager:
+    Login_Page:
+    Signup_Page:
+    Home:
+    Balance:
+    Withdraw:
+    Deposit:
+    Transfer:
+
+<Login_Page>:
+
+    name:'login_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'LOGIN'
+        elevation:8
+
+    MDTextField:
+        id:login_username
+        hint_text:"Username"
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.65}
+        size_hint_x:None
+        width:270
+
+    MDTextField:
+        id:login_password
+        hint_text:'Password'
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.55}
+        size_hint_x:None
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Login'
+        pos_hint:{'center_x':0.5,'center_y':0.45}
+        on_release: app.credential_check(login_username.text,login_password.text)
+
+
+    MDRectangleFlatButton:
+        text:'Signup'
+        pos_hint:{'center_x':0.5,'center_y':0.35}
+        on_press:
+            root.manager.current="signup_page"
+<Signup_Page>:
+    name:'signup_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'SIGNUP'
+        elevation:8
+
+    MDTextField:
+        hint_text:'First Name'
+        pos_hint:{'center_x':0.5,'center_y':0.8}
+        required:True
+        size_hint_x:None
+        width:270
+
+
+    MDTextField:
+        hint_text:'Last Name'
+        pos_hint:{'center_x':0.5,'center_y':0.7}
+        required:True
+        size_hint_x:None
+        width:270
+
+    MDTextField:
+        hint_text:'Set Password'
+        helper_text:"Must be longer than 8 characters"
+        pos_hint:{'center_x':0.5,'center_y':0.6}
+        size_hint_x:None
+        width:270
+        required:True
+
+    MDTextField:
+        hint_text:'Phone Number'
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        size_hint_x:None
+        width:270
+        required:True
+
+    MDTextField:
+        hint_text:'Aadhar Number'
+        pos_hint:{'center_x':0.5,'center_y':0.4}
+        size_hint_x:None
+        width:270
+        required:True
+
+    MDRectangleFlatButton:
+        text:'Submit'
+        on_press: app.upload_success_dialog()
+        pos_hint:{'center_x':0.5,'center_y':0.3}
+
+    MDRectangleFlatButton:
+        text:'Have an acoount? Login'
+        pos_hint:{'center_x':0.5,'center_y':0.2}
+        on_press: root.manager.current="home"
+
+<Home>:
+    name:'home'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'PyBank'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        elevation:8
+
+    MDNavigationDrawer:
+        id:nav_drawer
+        BoxLayout:
+            spacing:'8dp'
+            padding:'8dp'
+            orientation:'vertical'
+
+            Image:
+                source:'python_logo.png'
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: 'Balance'
+                        on_press: root.manager.current="balance_page"
+                        IconLeftWidget:
+                            icon:'cash'
+
+
+
+                    OneLineIconListItem:
+                        text: 'Transfer'
+                        on_press:root.manager.current='transfer_page'
+                        IconLeftWidget:
+                            icon:'bank-transfer'
+
+
+                    OneLineIconListItem:
+                        text: 'Withdraw'
+                        on_press:root.manager.current='withdraw_page'
+                        IconLeftWidget:
+                            icon:'cash-minus'
+
+                    OneLineIconListItem:
+                        text: 'Deposit'
+                        on_press:root.manager.current='deposit_page'
+                        IconLeftWidget:
+                            icon:'cash-plus'
+
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='login_page'
+                        IconLeftWidget:
+                            icon:'logout'
+
+
+<Balance>:
+
+    name:'balance_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'PyBank'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        elevation:8
+
+    BoxLayout:
+        spacing:'8dp'
+        padding:'8dp'
+        orientation:'vertical'
+
+
+
+    MDNavigationDrawer:
+        id:nav_drawer
+        BoxLayout:
+            spacing:'8dp'
+            padding:'8dp'
+            orientation:'vertical'
+
+            Image:
+                source:'python_logo.png'
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: 'Balance'
+                        on_press: root.manager.current="balance_page"
+                        IconLeftWidget:
+                            icon:'cash'
+
+
+
+                    OneLineIconListItem:
+                        text: 'Transfer'
+                        on_press:root.manager.current='transfer_page'
+                        IconLeftWidget:
+                            icon:'bank-transfer'
+
+
+                    OneLineIconListItem:
+                        text: 'Withdraw'
+                        on_press:root.manager.current='withdraw_page'
+                        IconLeftWidget:
+                            icon:'cash-minus'
+
+                    OneLineIconListItem:
+                        text: 'Deposit'
+                        on_press:root.manager.current='deposit_page'
+                        IconLeftWidget:
+                            icon:'cash-plus'
+
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='login_page'
+                        IconLeftWidget:
+                            icon:'logout'
+
+    OneLineIconListItem:
+        text: 'Balance :'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+        size_hint_x:None
+        width:250
+        required:True
+        IconLeftWidget:
+            icon:'cash'
+
+<Withdraw>:
+
+    name:'withdraw_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'PyBank'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        elevation:8
+
+    BoxLayout:
+        spacing:'8dp'
+        padding:'8dp'
+        orientation:'vertical'
+
+
+
+    MDNavigationDrawer:
+        id:nav_drawer
+        BoxLayout:
+            spacing:'8dp'
+            padding:'8dp'
+            orientation:'vertical'
+
+            Image:
+                source:'python_logo.jpg'
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: 'Balance'
+                        on_press: root.manager.current="balance_page"
+                        IconLeftWidget:
+                            icon:'cash'
+
+
+
+                    OneLineIconListItem:
+                        text: 'Transfer'
+                        on_press:root.manager.current='transfer_page'
+                        IconLeftWidget:
+                            icon:'bank-transfer'
+
+
+                    OneLineIconListItem:
+                        text: 'Withdraw'
+                        on_press:root.manager.current='withdraw_page'
+                        IconLeftWidget:
+                            icon:'cash-minus'
+
+                    OneLineIconListItem:
+                        text: 'Deposit'
+                        on_press:root.manager.current='deposit_page'
+                        IconLeftWidget:
+                            icon:'cash-plus'
+
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='login_page'
+                        IconLeftWidget:
+                            icon:'logout'
+
+    MDTextField:
+        id:withdraw_amount
+        text: 'Amount'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+        mode:'rectangle'
+        required:True
+        size_hint_x:None
+        width:250
+        IconLeftWidget:
+            icon: 'cash'
+
+    MDRectangleFlatButton:
+        text:'WITHDRAW'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        on_press:app.get_withdraw_amount(withdraw_amount.text)
+
+<Transfer>:
+
+    name:'transfer_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'PyBank'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        elevation:8
+
+    BoxLayout:
+        spacing:'8dp'
+        padding:'8dp'
+        orientation:'vertical'
+
+
+
+    MDNavigationDrawer:
+        id:nav_drawer
+        BoxLayout:
+            spacing:'8dp'
+            padding:'8dp'
+            orientation:'vertical'
+
+            Image:
+                source:'python_logo.jpg'
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: 'Balance'
+                        on_press: root.manager.current="balance_page"
+                        IconLeftWidget:
+                            icon:'cash'
+
+
+
+                    OneLineIconListItem:
+                        text: 'Transfer'
+                        on_press:root.manager.current='transfer_page'
+                        IconLeftWidget:
+                            icon:'bank-transfer'
+
+
+                    OneLineIconListItem:
+                        text: 'Withdraw'
+                        on_press:root.manager.current='withdraw_page'
+                        IconLeftWidget:
+                            icon:'cash-minus'
+
+                    OneLineIconListItem:
+                        text: 'Deposit'
+                        on_press:root.manager.current='deposit_page'
+                        IconLeftWidget:
+                            icon:'cash-plus'
+
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='login_page'
+                        IconLeftWidget:
+                            icon:'logout'
+
+    MDTextField:
+        text: 'Account Number'
+        mode:'rectangle'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+        required:True
+        size_hint_x:None
+        width:250
+        IconLeftWidget:
+            icon: 'cash'
+
+    MDTextField:
+        text: 'Amount'
+        mode:'rectangle'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+        required:True
+        size_hint_x:None
+        width:250
+        IconLeftWidget:
+            icon: 'cash'
+
+    MDRectangleFlatButton:
+        text:'TRANSFER'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        on_press:app.get_withdraw_amount(withdraw_amount.text)
+
+<Deposit>:
+
+    name:'deposit_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'PyBank'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        elevation:8
+
+    BoxLayout:
+        spacing:'8dp'
+        padding:'8dp'
+        orientation:'vertical'
+
+
+
+    MDNavigationDrawer:
+        id:nav_drawer
+        BoxLayout:
+            spacing:'8dp'
+            padding:'8dp'
+            orientation:'vertical'
+
+            Image:
+                source:'python_logo.jpg'
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: 'Balance'
+                        on_press: root.manager.current="balance_page"
+                        IconLeftWidget:
+                            icon:'cash'
+
+
+
+                    OneLineIconListItem:
+                        text: 'Transfer'
+                        on_press:root.manager.current='transfer_page'
+                        IconLeftWidget:
+                            icon:'bank-transfer'
+
+
+                    OneLineIconListItem:
+                        text: 'Withdraw'
+                        on_press:root.manager.current='withdraw_page'
+                        IconLeftWidget:
+                            icon:'cash-minus'
+
+                    OneLineIconListItem:
+                        text: 'Deposit'
+                        on_press:root.manager.current='deposit_page'
+                        IconLeftWidget:
+                            icon:'cash-plus'
+
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='login_page'
+                        IconLeftWidget:
+                            icon:'logout'
+
+
+    MDTextField:
+        text: 'Amount'
+        mode: 'rectangle'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+        required: True
+        size_hint_x: None
+        width: 250
+        IconLeftWidget:
+            icon: 'cash'
+
+    MDRectangleFlatButton:
+        text: 'WITHDRAW'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        on_press: app.get_withdraw_amount(withdraw_amount.text)
