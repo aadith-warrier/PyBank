@@ -50,17 +50,5 @@ class MyApp(MDApp):
         print(amount)
 
 
-    def go_to_login(self):
-        
-
-
-
-    def upload_success_dialog(self):
-        dialog = MDDialog(title='Success',text='Your Account is active.Try Logging in now.',
-                          buttons=[
-                              MDFlatButton(
-                                  text="OK", text_color=self.theme_cls.primary_color,
-                                  on_press=self.go_to_login)],size_hint=(0.7, 1),)
-        dialog.open()
 
 MyApp().run()
