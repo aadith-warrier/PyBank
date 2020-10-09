@@ -52,6 +52,7 @@ ScreenManager:
         elevation:8
 
     MDTextField:
+        id: firstname
         hint_text:'First Name'
         pos_hint:{'center_x':0.5,'center_y':0.8}
         required:True
@@ -60,6 +61,7 @@ ScreenManager:
 
 
     MDTextField:
+        id:lastname
         hint_text:'Last Name'
         pos_hint:{'center_x':0.5,'center_y':0.7}
         required:True
@@ -67,6 +69,7 @@ ScreenManager:
         width:270
 
     MDTextField:
+        id:password
         hint_text:'Set Password'
         helper_text:"Must be longer than 8 characters"
         pos_hint:{'center_x':0.5,'center_y':0.6}
@@ -75,6 +78,7 @@ ScreenManager:
         required:True
 
     MDTextField:
+        id:phonenumber
         hint_text:'Phone Number'
         pos_hint:{'center_x':0.5,'center_y':0.5}
         size_hint_x:None
@@ -82,6 +86,7 @@ ScreenManager:
         required:True
 
     MDTextField:
+        id:aadharnumber
         hint_text:'Aadhar Number'
         pos_hint:{'center_x':0.5,'center_y':0.4}
         size_hint_x:None
@@ -92,9 +97,10 @@ ScreenManager:
         text:'Submit'
         on_press: app.upload_success_dialog()
         pos_hint:{'center_x':0.5,'center_y':0.3}
+        on_release: app.signup_new(firstname.text,lastname.text,password.text,phonenumber.text,aadharnumber.text)
 
     MDRectangleFlatButton:
-        text:'Have an acoount? Login'
+        text:'Have an account? Login'
         pos_hint:{'center_x':0.5,'center_y':0.2}
         on_press: root.manager.current="home"
 
@@ -218,9 +224,6 @@ ScreenManager:
     OneLineIconListItem:
         text: 'Balance :'
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
-        size_hint_x:None
-        width:250
-        required:True
         IconLeftWidget:
             icon:'cash'
 
@@ -293,13 +296,12 @@ ScreenManager:
         mode:'rectangle'
         required:True
         size_hint_x:None
-        width:250
+        width:500
         IconLeftWidget:
             icon: 'cash'
 
     MDRectangleFlatButton:
-        text:'WITHDRAW'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+        text:'GO'
         on_press:app.get_withdraw_amount(withdraw_amount.text)
 
 <Transfer>:
@@ -365,29 +367,14 @@ ScreenManager:
                             icon:'logout'
 
     MDTextField:
-        text: 'Account Number'
-        mode:'rectangle'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.8}
-        required:True
-        size_hint_x:None
-        width:250
-        IconLeftWidget:
-            icon: 'cash'
-
-    MDTextField:
         text: 'Amount'
         mode:'rectangle'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
         required:True
         size_hint_x:None
-        width:250
+        width:500
         IconLeftWidget:
             icon: 'cash'
-
-    MDRectangleFlatButton:
-        text:'TRANSFER'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-        on_press:app.get_withdraw_amount(withdraw_amount.text)
 
 <Deposit>:
 
@@ -451,18 +438,12 @@ ScreenManager:
                         IconLeftWidget:
                             icon:'logout'
 
-
     MDTextField:
         text: 'Amount'
-        mode: 'rectangle'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.7}
-        required: True
-        size_hint_x: None
-        width: 250
+        mode:'rectangle'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+        required:True
+        size_hint_x:None
+        width:500
         IconLeftWidget:
             icon: 'cash'
-
-    MDRectangleFlatButton:
-        text: 'WITHDRAW'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.6}
-        on_press: app.get_withdraw_amount(withdraw_amount.text)
