@@ -9,7 +9,7 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.dialog import MDDialog
 import mysql.connector as sqltor
 from passlib.hash import pbkdf2_sha256
-
+import pymysql
 
 class Login_Page(Screen):
     pass
@@ -60,8 +60,8 @@ class MyApp(MDApp):
                 crypt = i
         credential_check = pbkdf2_sha256.verify(password, crypt)
 
-        '''if credential_check == True:
-            self.root.manager.current = "home" '''
+        return credential_check
+
 
     def get_withdraw_amount(self, amount):
         print(amount)

@@ -18,24 +18,39 @@ ScreenManager:
 
     MDTextField:
         id:login_username
-        hint_text:"Username"
+        helper_text:"Enter Username"
+        helper_text_mode: "persistent"
         required:True
         pos_hint:{'center_x':0.5,'center_y':0.65}
+        icon_right: 'key-variant'
         size_hint_x:None
         width:270
 
     MDTextField:
         id:login_password
-        hint_text:'Password'
+        helper_text:'Password'
+        helper_text_mode: "persistent"
         required:True
+        password: True
         pos_hint:{'center_x':0.5,'center_y':0.55}
         size_hint_x:None
         width:270
 
+    MDIconButton:
+        icon: "eye-off"
+        ripple_scale: .5
+        pos_hint: {"center_y": .55, "center_x":0.65}
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            login_password.password = False if login_password.password is True else True
+
     MDRectangleFlatButton:
         text:'Login'
         pos_hint:{'center_x':0.5,'center_y':0.45}
-        on_release: app.credential_check(login_username.text,login_password.text)
+        on_release:
+            check=app.credential_check(login_username.text,login_password.text)
+            root.manager.current="home" if check == True else "login_page"
+
 
 
     MDRectangleFlatButton:
@@ -53,7 +68,8 @@ ScreenManager:
 
     MDTextField:
         id: firstname
-        hint_text:'First Name'
+        helper_text:'First Name'
+        helper_text_mode: "persistent"
         pos_hint:{'center_x':0.5,'center_y':0.8}
         required:True
         size_hint_x:None
@@ -62,7 +78,8 @@ ScreenManager:
 
     MDTextField:
         id:lastname
-        hint_text:'Last Name'
+        helper_text:'Last Name'
+        helper_text_mode: "persistent"
         pos_hint:{'center_x':0.5,'center_y':0.7}
         required:True
         size_hint_x:None
@@ -70,16 +87,25 @@ ScreenManager:
 
     MDTextField:
         id:password
-        hint_text:'Set Password'
-        helper_text:"Must be longer than 8 characters"
+        helper_text:'Set Password'
+        helper_text_mode: "persistent"
         pos_hint:{'center_x':0.5,'center_y':0.6}
         size_hint_x:None
         width:270
         required:True
 
+    MDIconButton:
+        icon: "eye-off"
+        ripple_scale: .5
+        pos_hint: {"center_y": .6, "center_x":0.65}
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            password.password = False if password.password is True else True
+
     MDTextField:
         id:phonenumber
-        hint_text:'Phone Number'
+        helper_text:'Phone Number'
+        helper_text_mode: "persistent"
         pos_hint:{'center_x':0.5,'center_y':0.5}
         size_hint_x:None
         width:270
@@ -87,7 +113,8 @@ ScreenManager:
 
     MDTextField:
         id:aadharnumber
-        hint_text:'Aadhar Number'
+        helper_text:'Aadhar Number'
+        helper_text_mode: "persistent"
         pos_hint:{'center_x':0.5,'center_y':0.4}
         size_hint_x:None
         width:270
@@ -221,6 +248,7 @@ ScreenManager:
                         IconLeftWidget:
                             icon:'logout'
 
+
     OneLineIconListItem:
         text: 'Balance :'
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
@@ -291,7 +319,7 @@ ScreenManager:
 
     MDTextField:
         id:withdraw_amount
-        text: 'Amount'
+        hint_text: 'Amount'
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
         mode:'rectangle'
         required:True
@@ -367,7 +395,7 @@ ScreenManager:
                             icon:'logout'
 
     MDTextField:
-        text: 'Amount'
+        hint_text: 'Amount'
         mode:'rectangle'
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
         required:True
@@ -439,7 +467,7 @@ ScreenManager:
                             icon:'logout'
 
     MDTextField:
-        text: 'Amount'
+        hint_text: 'Amount'
         mode:'rectangle'
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
         required:True
