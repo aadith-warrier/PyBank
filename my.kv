@@ -52,7 +52,6 @@ ScreenManager:
             root.manager.current="home" if check == True else "login_page"
 
 
-
     MDRectangleFlatButton:
         text:'Signup'
         pos_hint:{'center_x':0.5,'center_y':0.35}
@@ -154,7 +153,9 @@ ScreenManager:
                 MDList:
                     OneLineIconListItem:
                         text: 'Balance'
-                        on_press: root.manager.current="balance_page"
+                        on_press:
+                            app.upload_success_dialog()
+                            
                         IconLeftWidget:
                             icon:'cash'
 
@@ -217,7 +218,9 @@ ScreenManager:
                 MDList:
                     OneLineIconListItem:
                         text: 'Balance'
-                        on_press: root.manager.current="balance_page"
+                        on_press:
+                            root.manager.current="balance_page"
+                            app.get_balance()
                         IconLeftWidget:
                             icon:'cash'
 
@@ -249,11 +252,6 @@ ScreenManager:
                             icon:'logout'
 
 
-    OneLineIconListItem:
-        text: 'Balance :'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
-        IconLeftWidget:
-            icon:'cash'
 
 <Withdraw>:
 
@@ -286,7 +284,10 @@ ScreenManager:
                 MDList:
                     OneLineIconListItem:
                         text: 'Balance'
-                        on_press: root.manager.current="balance_page"
+                        on_press:
+                            root.manager.current="balance_page"
+                            
+
                         IconLeftWidget:
                             icon:'cash'
 
@@ -363,7 +364,9 @@ ScreenManager:
                 MDList:
                     OneLineIconListItem:
                         text: 'Balance'
-                        on_press: root.manager.current="balance_page"
+                        on_press:
+                            root.manager.current="balance_page"
+                            
                         IconLeftWidget:
                             icon:'cash'
 
@@ -395,14 +398,24 @@ ScreenManager:
                             icon:'logout'
 
     MDTextField:
-        hint_text: 'Amount'
+        hint_text: 'Account'
         mode:'rectangle'
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
         required:True
         size_hint_x:None
-        width:500
+        width:300
         IconLeftWidget:
             icon: 'cash'
+
+    MDTextField:
+        hint_text: 'Amount'
+        mode:'rectangle'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+        required:True
+        size_hint_x:None
+        width:300
+        IconLeftWidget:
+            icon: 'key'
 
 <Deposit>:
 
@@ -435,7 +448,9 @@ ScreenManager:
                 MDList:
                     OneLineIconListItem:
                         text: 'Balance'
-                        on_press: root.manager.current="balance_page"
+                        on_press:
+                            root.manager.current="balance_page"
+
                         IconLeftWidget:
                             icon:'cash'
 

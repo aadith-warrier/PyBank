@@ -9,6 +9,7 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.dialog import MDDialog
 import mysql.connector as sqltor
 from passlib.hash import pbkdf2_sha256
+from kivymd.uix.list import OneLineIconListItem
 import pymysql
 
 class Login_Page(Screen):
@@ -44,6 +45,9 @@ class MyApp(MDApp):
         screen = Builder.load_file("my.kv")
         return screen
 
+
+
+
     def credential_check(self, user_acc_no, password):
         mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
         cursor = mycon.cursor()
@@ -67,7 +71,9 @@ class MyApp(MDApp):
         print(amount)
 
     def upload_success_dialog(self):
-        dialog = MDDialog(title='Success', size_hint=(0.7, 1))
+        balance=str(1234)
+        balance_string="Current Balance is "+ chr(8377) +balance
+        dialog = MDDialog(title=balance_string, size_hint=(0.7, 1))
         dialog.open()
 
     def signup_new(self, name, surname, pswd, ph_no, adr_no):
