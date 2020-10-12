@@ -18,7 +18,7 @@ ScreenManager:
 
     MDTextField:
         id:login_username
-        helper_text:"Enter Username"
+        helper_text:"Enter Account Number"
         helper_text_mode: "persistent"
         required:True
         pos_hint:{'center_x':0.5,'center_y':0.65}
@@ -53,7 +53,7 @@ ScreenManager:
 
 
     MDRectangleFlatButton:
-        text:'Signup'
+        text:'Create Account'
         pos_hint:{'center_x':0.5,'center_y':0.35}
         on_press:
             root.manager.current="signup_page"
@@ -112,7 +112,7 @@ ScreenManager:
 
     MDTextField:
         id:aadharnumber
-        helper_text:'Aadhar Number'
+        helper_text:'Aadhar Number (12 digits)'
         helper_text_mode: "persistent"
         pos_hint:{'center_x':0.5,'center_y':0.4}
         size_hint_x:None
@@ -154,7 +154,7 @@ ScreenManager:
                     OneLineIconListItem:
                         text: 'Balance'
                         on_press:
-                            app.upload_success_dialog()
+                            app.success_dialog()
                             
                         IconLeftWidget:
                             icon:'cash'
@@ -220,7 +220,7 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-                            app.get_balance()
+                            app.success_dialog()
                         IconLeftWidget:
                             icon:'cash'
 
@@ -286,7 +286,7 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-                            
+                            app.success_dialog()
 
                         IconLeftWidget:
                             icon:'cash'
@@ -332,7 +332,7 @@ ScreenManager:
     MDRectangleFlatButton:
         text:'GO'
         pos_hint: {'center_x': 0.5, 'center_y': 0.65}
-        on_press:app.get_withdraw_amount(withdraw_amount.text)
+        on_press:app.withdraw(withdraw_amount.text)
 
 <Transfer>:
 
@@ -367,7 +367,7 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-                            
+                            app.success_dialog()
                         IconLeftWidget:
                             icon:'cash'
 
@@ -451,7 +451,7 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-
+                            app.success_dialog()
                         IconLeftWidget:
                             icon:'cash'
 

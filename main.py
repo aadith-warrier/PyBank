@@ -67,10 +67,8 @@ class MyApp(MDApp):
         return credential_check
 
 
-    def get_withdraw_amount(self, amount):
-        print(amount)
 
-    def upload_success_dialog(self):
+    def success_dialog(self):
         balance=str(1234)
         balance_string="Current Balance is "+ chr(8377) +balance
         dialog = MDDialog(title=balance_string, size_hint=(0.7, 1))
@@ -107,6 +105,54 @@ class MyApp(MDApp):
             "INSERT INTO USERS101( ACC_NO , NAME , SURNAME , PHONE_NUMBER , BALANCE , PASSWORD , AADHAR_NUMBER) VALUES({},'{}','{}',{},{},'{}',{});".format(
                 acc_no, name, surname, ph_no, balance, pswd, adr_no))
         mycon.commit()
+
+    def withdraw(self, acc_no,pswd,amt):
+        mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
+        cursor = mycon.cursor()
+        cursor.execute("SELECT PASSWORD FROM USERS101 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        for row in cursor.fetchall():
+            for i in row:
+                crypt = i
+        credential_check = pbkdf2_sha256.verify(pswd, crypt)
+        if credential_check==True:
+            st = "UPDATE USERS101 SET balance=balance-{} WHERE ACC_NO={}".format(amt,acc_no)
+            cursor.execute(st)
+            mycon.commit()
+
+
+
+    def deposit(self,acc_no,pswd,amt):
+        mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
+        cursor = mycon.cursor()
+        cursor.execute("SELECT PASSWORD FROM USERS101 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        for row in cursor.fetchall():
+            for i in row:
+                crypt = i
+        credential_check = pbkdf2_sha256.verify(pswd, crypt)
+        if credential_check==True:
+            st = "UPDATE USERS101 SET balance=balance+{} WHERE ACC_NO={}".format(amt,acc_no)
+            cursor.execute(st)
+            mycon.commit()
+
+    def transfer(self, acc_no, t_acc_no, pswd, amt):
+        mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
+        cursor = mycon.cursor()
+        cursor.execute("SELECT PASSWORD FROM USERS101 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        for row in cursor.fetchall():
+            for i in row:
+                crypt = i
+        credential_check = pbkdf2_sha256.verify(pswd, crypt)
+        if credential_check==True:
+            st = "UPDATE USERS101 SET balance=balance+{} WHERE ACC_NO={}".format(amt, t_acc_no)
+            cursor.execute(st)
+            mycon.commit()
+            st = "UPDATE USERS101 SET balance=balance-{} WHERE ACC_NO={}".format(amt, acc_no)
+            cursor.execute(st)
+            mycon.commit()
+
+
+
+
 
 
 MyApp().run()
