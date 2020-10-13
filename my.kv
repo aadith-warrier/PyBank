@@ -329,9 +329,39 @@ ScreenManager:
         IconLeftWidget:
             icon: 'cash'
 
+
+    MDTextField:
+        id:login_username
+        helper_text:"Enter Account Number"
+        helper_text_mode: "persistent"
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.65}
+        icon_right: 'key-variant'
+        size_hint_x:None
+        width:270
+
+    MDTextField:
+        id:login_password
+        helper_text:'Password'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.55}
+        size_hint_x:None
+        width:270
+
+    MDIconButton:
+        icon: "eye-off"
+        ripple_scale: .5
+        pos_hint: {"center_y": .55, "center_x":0.65}
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            login_password.password = False if login_password.password is True else True
+
+
     MDRectangleFlatButton:
-        text:'GO'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.65}
+        text:'Withdraw'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
         on_press:app.withdraw(withdraw_amount.text)
 
 <Transfer>:
@@ -417,6 +447,40 @@ ScreenManager:
         width:300
         IconLeftWidget:
             icon: 'key'
+    MDTextField:
+        id:login_username
+        helper_text:"Enter Account Number"
+        helper_text_mode: "persistent"
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.55}
+        icon_right: 'key-variant'
+        size_hint_x:None
+        width:270
+
+    MDTextField:
+        id:login_password
+        helper_text:'Password'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.45}
+        size_hint_x:None
+        width:270
+
+    MDIconButton:
+        icon: "eye-off"
+        ripple_scale: .5
+        pos_hint: {"center_y": .45, "center_x":0.65}
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            login_password.password = False if login_password.password is True else True
+
+    MDRectangleFlatButton:
+        text:"Transfer"
+        pos_hint:{'center_x':0.5,'center_y':0.35}
+        on_release:
+            check=app.credential_check(login_username.text,login_password.text)
+            root.manager.current="home" if check == True else "login_page"
 
 <Deposit>:
 
@@ -491,3 +555,38 @@ ScreenManager:
         width:500
         IconLeftWidget:
             icon: 'cash'
+
+    MDTextField:
+        id:login_username
+        helper_text:"Enter Account Number"
+        helper_text_mode: "persistent"
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.65}
+        icon_right: 'key-variant'
+        size_hint_x:None
+        width:270
+
+    MDTextField:
+        id:login_password
+        helper_text:'Password'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.55}
+        size_hint_x:None
+        width:270
+
+    MDIconButton:
+        icon: "eye-off"
+        ripple_scale: .5
+        pos_hint: {"center_y": .55, "center_x":0.65}
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            login_password.password = False if login_password.password is True else True
+
+    MDRectangleFlatButton:
+        text:'Deposit'
+        pos_hint:{'center_x':0.5,'center_y':0.45}
+        on_release:
+            check=app.credential_check(login_username.text,login_password.text)
+            root.manager.current="home" if check == True else "login_page"
