@@ -6,6 +6,11 @@ ScreenManager:
     Withdraw:
     Deposit:
     Transfer:
+    OTP_Login:
+    OTP_Signup:
+    OTP_Transfer:
+    OTP_Withdraw:
+    OTP_Deposit:
 
 <Login_Page>:
 
@@ -48,8 +53,9 @@ ScreenManager:
         text:'Login'
         pos_hint:{'center_x':0.5,'center_y':0.45}
         on_release:
-            check=app.credential_check(login_username.text,login_password.text)
-            root.manager.current="home" if check == True else "login_page"
+            root.manager.current='otp_login'
+            #check=app.credential_check(login_username.text,login_password.text)
+            #root.manager.current="home" if check == True else "login_page"
 
 
     MDRectangleFlatButton:
@@ -69,7 +75,7 @@ ScreenManager:
         id: firstname
         helper_text:'First Name'
         helper_text_mode: "persistent"
-        pos_hint:{'center_x':0.5,'center_y':0.8}
+        pos_hint:{'center_x':0.5,'center_y':0.85}
         required:True
         size_hint_x:None
         width:270
@@ -79,7 +85,7 @@ ScreenManager:
         id:lastname
         helper_text:'Last Name'
         helper_text_mode: "persistent"
-        pos_hint:{'center_x':0.5,'center_y':0.7}
+        pos_hint:{'center_x':0.5,'center_y':0.75}
         required:True
         size_hint_x:None
         width:270
@@ -88,7 +94,7 @@ ScreenManager:
         id:password
         helper_text:'Set Password'
         helper_text_mode: "persistent"
-        pos_hint:{'center_x':0.5,'center_y':0.6}
+        pos_hint:{'center_x':0.5,'center_y':0.65}
         size_hint_x:None
         width:270
         required:True
@@ -105,7 +111,7 @@ ScreenManager:
         id:phonenumber
         helper_text:'Phone Number'
         helper_text_mode: "persistent"
-        pos_hint:{'center_x':0.5,'center_y':0.5}
+        pos_hint:{'center_x':0.5,'center_y':0.55}
         size_hint_x:None
         width:270
         required:True
@@ -114,20 +120,31 @@ ScreenManager:
         id:aadharnumber
         helper_text:'Aadhar Number (12 digits)'
         helper_text_mode: "persistent"
-        pos_hint:{'center_x':0.5,'center_y':0.4}
+        pos_hint:{'center_x':0.5,'center_y':0.45}
         size_hint_x:None
         width:270
         required:True
 
+    MDTextField:
+        id:email
+        helper_text:'E-Mail'
+        helper_text_mode: "persistent"
+        pos_hint:{'center_x':0.5,'center_y':0.35}
+        size_hint_x:None
+        width:270
+        required:True
+
+
     MDRectangleFlatButton:
         text:'Submit'
-        on_press: app.upload_success_dialog()
-        pos_hint:{'center_x':0.5,'center_y':0.3}
-        on_release: app.signup_new(firstname.text,lastname.text,password.text,phonenumber.text,aadharnumber.text)
+        pos_hint:{'center_x':0.5,'center_y':0.25}
+        on_release:
+            #app.signup_new(firstname.text,lastname.text,password.text,phonenumber.text,aadharnumber.text)
+            root.manager.current='otp_signup'
 
     MDRectangleFlatButton:
         text:'Have an account? Login'
-        pos_hint:{'center_x':0.5,'center_y':0.2}
+        pos_hint:{'center_x':0.5,'center_y':0.15}
         on_press: root.manager.current="home"
 
 <Home>:
@@ -362,7 +379,9 @@ ScreenManager:
     MDRectangleFlatButton:
         text:'Withdraw'
         pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-        on_press:app.withdraw(withdraw_amount.text)
+        on_press:
+            #app.withdraw(withdraw_amount.text)
+            root.manager.current:'otp_withdraw'
 
 <Transfer>:
 
@@ -479,8 +498,8 @@ ScreenManager:
         text:"Transfer"
         pos_hint:{'center_x':0.5,'center_y':0.35}
         on_release:
-            check=app.credential_check(login_username.text,login_password.text)
-            root.manager.current="home" if check == True else "login_page"
+            #check=app.credential_check(login_username.text,login_password.text)
+            root.manager.current="otp_transfer" #if check == True else "home"
 
 <Deposit>:
 
@@ -588,5 +607,128 @@ ScreenManager:
         text:'Deposit'
         pos_hint:{'center_x':0.5,'center_y':0.45}
         on_release:
-            check=app.credential_check(login_username.text,login_password.text)
-            root.manager.current="home" if check == True else "login_page"
+            #check=app.credential_check(login_username.text,login_password.text)
+            root.manager.current="otp_deposit" #if check == True else "home
+
+<OTP_Login>:
+    name:'otp_login'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'Enter OTP'
+        elevation:8
+
+    MDTextField:
+        id:otp
+        helper_text:'Enter OTP sent to E-Mail'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.6}
+        size_hint_x:None
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Verify'
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        on_release:
+            root.manager.current='home'
+
+<OTP_Transfer>:
+    name:'otp_transfer'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'Enter OTP'
+        elevation:8
+
+    MDTextField:
+        id:otp
+        helper_text:'Enter OTP sent to E-Mail'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.6}
+        size_hint_x:None
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Verify'
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        on_release:
+            root.manager.current='home'
+
+
+<OTP_Withdraw>:
+    name:'otp_withdraw'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'Enter OTP'
+        elevation:8
+
+    MDTextField:
+        id:otp
+        helper_text:'Enter OTP sent to E-Mail'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.6}
+        size_hint_x:None
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Verify'
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        on_release:
+            root.manager.current='home'
+
+
+<OTP_Signup>:
+    name:'otp_signup'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'Enter OTP'
+        elevation:8
+
+    MDTextField:
+        id:otp
+        helper_text:'Enter OTP sent to E-Mail'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.6}
+        size_hint_x:None
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Verify'
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        on_release:
+            root.manager.current='login_page'
+
+
+<OTP_Deposit>:
+    name:'otp_deposit'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'Enter OTP'
+        elevation:8
+
+    MDTextField:
+        id:otp
+        helper_text:'Enter OTP sent to E-Mail'
+        helper_text_mode: "persistent"
+        required:True
+        password: True
+        pos_hint:{'center_x':0.5,'center_y':0.6}
+        size_hint_x:None
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Verify'
+        pos_hint:{'center_x':0.5,'center_y':0.5}
+        on_release:
+            root.manager.current='home'

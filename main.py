@@ -12,6 +12,7 @@ from passlib.hash import pbkdf2_sha256
 from kivymd.uix.list import OneLineIconListItem
 import pymysql
 
+
 class Login_Page(Screen):
     pass
 
@@ -40,13 +41,30 @@ class Transfer(Screen):
     pass
 
 
+class OTP_Login(Screen):
+    pass
+
+
+class OTP_Signup(Screen):
+    pass
+
+
+class OTP_Transfer(Screen):
+    pass
+
+
+class OTP_Withdraw(Screen):
+    pass
+
+
+class OTP_Deposit(Screen):
+    pass
+
+
 class MyApp(MDApp):
     def build(self):
         screen = Builder.load_file("my.kv")
         return screen
-
-
-
 
     def credential_check(self, user_acc_no, password):
         mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
@@ -66,11 +84,9 @@ class MyApp(MDApp):
 
         return credential_check
 
-
-
     def success_dialog(self):
-        balance=str(1234)
-        balance_string="Current Balance is "+ chr(8377) +balance
+        balance = str(1234)
+        balance_string = "Current Balance is " + chr(8377) + balance
         dialog = MDDialog(title=balance_string, size_hint=(0.7, 1))
         dialog.open()
 
@@ -106,7 +122,7 @@ class MyApp(MDApp):
                 acc_no, name, surname, ph_no, balance, pswd, adr_no))
         mycon.commit()
 
-    def withdraw(self, acc_no,pswd,amt):
+    def withdraw(self, acc_no, pswd, amt):
         mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
         cursor = mycon.cursor()
         cursor.execute("SELECT PASSWORD FROM USERS101 WHERE ACC_NO LIKE '{}';".format(acc_no))
@@ -114,14 +130,12 @@ class MyApp(MDApp):
             for i in row:
                 crypt = i
         credential_check = pbkdf2_sha256.verify(pswd, crypt)
-        if credential_check==True:
-            st = "UPDATE USERS101 SET balance=balance-{} WHERE ACC_NO={}".format(amt,acc_no)
+        if credential_check == True:
+            st = "UPDATE USERS101 SET balance=balance-{} WHERE ACC_NO={}".format(amt, acc_no)
             cursor.execute(st)
             mycon.commit()
 
-
-
-    def deposit(self,acc_no,pswd,amt):
+    def deposit(self, acc_no, pswd, amt):
         mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
         cursor = mycon.cursor()
         cursor.execute("SELECT PASSWORD FROM USERS101 WHERE ACC_NO LIKE '{}';".format(acc_no))
@@ -129,8 +143,8 @@ class MyApp(MDApp):
             for i in row:
                 crypt = i
         credential_check = pbkdf2_sha256.verify(pswd, crypt)
-        if credential_check==True:
-            st = "UPDATE USERS101 SET balance=balance+{} WHERE ACC_NO={}".format(amt,acc_no)
+        if credential_check == True:
+            st = "UPDATE USERS101 SET balance=balance+{} WHERE ACC_NO={}".format(amt, acc_no)
             cursor.execute(st)
             mycon.commit()
 
@@ -142,17 +156,13 @@ class MyApp(MDApp):
             for i in row:
                 crypt = i
         credential_check = pbkdf2_sha256.verify(pswd, crypt)
-        if credential_check==True:
+        if credential_check == True:
             st = "UPDATE USERS101 SET balance=balance+{} WHERE ACC_NO={}".format(amt, t_acc_no)
             cursor.execute(st)
             mycon.commit()
             st = "UPDATE USERS101 SET balance=balance-{} WHERE ACC_NO={}".format(amt, acc_no)
             cursor.execute(st)
             mycon.commit()
-
-
-
-
 
 
 MyApp().run()
