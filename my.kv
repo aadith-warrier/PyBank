@@ -11,6 +11,7 @@ ScreenManager:
     OTP_Transfer:
     OTP_Withdraw:
     OTP_Deposit:
+    Transaction_Success:
 
 <Login_Page>:
 
@@ -337,12 +338,12 @@ ScreenManager:
 
     MDTextField:
         id:withdraw_amount
-        hint_text: 'Amount'
+        helper_text: 'Amount'
+        helper_text_mode: "persistent"
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
-        mode:'rectangle'
         required:True
         size_hint_x:None
-        width:500
+        width:270
         IconLeftWidget:
             icon: 'cash'
 
@@ -448,22 +449,22 @@ ScreenManager:
                             icon:'logout'
 
     MDTextField:
-        hint_text: 'Account'
-        mode:'rectangle'
+        helper_text: 'Account'
+        helper_text_mode: "persistent"
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
         required:True
         size_hint_x:None
-        width:300
+        width:270
         IconLeftWidget:
             icon: 'cash'
 
     MDTextField:
-        hint_text: 'Amount'
-        mode:'rectangle'
+        helper_text: 'Amount'
+        helper_text_mode: "persistent"
         pos_hint: {'center_x': 0.5, 'center_y': 0.65}
         required:True
         size_hint_x:None
-        width:300
+        width:270
         IconLeftWidget:
             icon: 'key'
     MDTextField:
@@ -566,12 +567,12 @@ ScreenManager:
                             icon:'logout'
 
     MDTextField:
-        hint_text: 'Amount'
-        mode:'rectangle'
+        helper_text: 'Amount'
+        helper_text_mode: "persistent"
         pos_hint: {'center_x': 0.5, 'center_y': 0.75}
         required:True
         size_hint_x:None
-        width:500
+        width:270
         IconLeftWidget:
             icon: 'cash'
 
@@ -656,7 +657,7 @@ ScreenManager:
         text:'Verify'
         pos_hint:{'center_x':0.5,'center_y':0.5}
         on_release:
-            root.manager.current='home'
+            root.manager.current='transaction_sucess'
 
 
 <OTP_Withdraw>:
@@ -681,7 +682,7 @@ ScreenManager:
         text:'Verify'
         pos_hint:{'center_x':0.5,'center_y':0.5}
         on_release:
-            root.manager.current='home'
+            root.manager.current='transaction_sucess'
 
 
 <OTP_Signup>:
@@ -706,7 +707,7 @@ ScreenManager:
         text:'Verify'
         pos_hint:{'center_x':0.5,'center_y':0.5}
         on_release:
-            root.manager.current='login_page'
+            root.manager.current='transaction_sucess'
 
 
 <OTP_Deposit>:
@@ -731,4 +732,26 @@ ScreenManager:
         text:'Verify'
         pos_hint:{'center_x':0.5,'center_y':0.5}
         on_release:
-            root.manager.current='home'
+            root.manager.current='transaction_sucess'
+
+<Transaction_Success>:
+    name:'transaction_sucess'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'Transaction Successful'
+        elevation:8
+
+    MDLabel:
+        text:"Transaction was Successful"
+        pos_hint:{'center_x':0.6,'center_y':0.8}
+        font_size:30
+        size_hint_x:None
+        width:500
+
+    MDRectangleFlatButton:
+        text:'OK'
+        pos_hint:{'center_x':0.5,'center_y':0.7}
+        on_press:
+            root.manager.current:'home'
+

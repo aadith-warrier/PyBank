@@ -11,6 +11,7 @@ import mysql.connector as sqltor
 from passlib.hash import pbkdf2_sha256
 from kivymd.uix.list import OneLineIconListItem
 import pymysql
+import time
 
 
 class Login_Page(Screen):
@@ -58,6 +59,10 @@ class OTP_Withdraw(Screen):
 
 
 class OTP_Deposit(Screen):
+    pass
+
+
+class Transaction_Success(Screen):
     pass
 
 
