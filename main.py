@@ -89,8 +89,6 @@ class MyApp(MDApp):
             for i in row:
                 crypt = i
         credential_check = pbkdf2_sha256.verify(password, crypt)
-        global userwe
-        userwe = user_acc_no
         return credential_check
 
     def success_dialog(self):
