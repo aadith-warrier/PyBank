@@ -8,13 +8,13 @@ from kivymd.uix.screen import Screen
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivymd.uix.dialog import MDDialog
-import mysql.connector as sqltor
 from passlib.hash import pbkdf2_sha256
+import mysql.connector
 import random
 import smtplib
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.list import OneLineIconListItem
-import pymysql
+import mysql.connector
 
 
 class Login_Page(Screen):
@@ -23,6 +23,7 @@ class Login_Page(Screen):
 
 class Signup_Page(Screen):
     pass
+
 
 class OTP_Page(Screen):
     pass
@@ -67,17 +68,19 @@ class OTP_Withdraw(Screen):
 class OTP_Deposit(Screen):
     pass
 
+
 class Transaction_Success(Screen):
     pass
+
 
 class MyApp(MDApp):
     def build(self):
         screen = Builder.load_file("my.kv")
         return screen
 
-
     def credential_check(self, user_acc_no, password):
-        mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+        mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                database="sql12374879")
         cursor = mycon.cursor()
         user_acc_no_sql = str("('" + user_acc_no + "',)")
         cursor.execute("SELECT ACC_NO FROM USERS1010;")
@@ -93,8 +96,9 @@ class MyApp(MDApp):
         credential_check = pbkdf2_sha256.verify(password, crypt)
         return credential_check
 
-    def success_dialog(self,user_acc_no, password):
-        mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+    def success_dialog(self, user_acc_no, password):
+        mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                database="sql12374879")
         cursor = mycon.cursor()
         user_acc_no_sql = str("('" + user_acc_no + "',)")
         cursor.execute("SELECT ACC_NO FROM USERS1010;")
@@ -109,7 +113,8 @@ class MyApp(MDApp):
                 crypt = i
         credential_check = pbkdf2_sha256.verify(password, crypt)
         if credential_check == True:
-            mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+            mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                    database="sql12374879")
             cursor = mycon.cursor()
             st = "select BALANCE from USERS1010 where ACC_NO='%s'" % (user_acc_no)
             cursor.execute(st)
@@ -119,13 +124,15 @@ class MyApp(MDApp):
             balance = str(balance)
             balance_string = "Current Balance is " + chr(8377) + balance
             self.dialog = MDDialog(title=balance_string, size_hint=(0.7, 1), buttons=[
-                                MDRaisedButton(text='OK', on_release= self.close_dialog)])
+                MDRaisedButton(text='OK', on_release=self.close_dialog)])
             self.dialog.open()
-    def close_dialog(self,user_acc_no):
+
+    def close_dialog(self, user_acc_no):
         self.dialog.dismiss()
 
     def signup_new(self, name, surname, pswd, ph_no, adr_no, email):
-        mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+        mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                database="sql12374879")
         cursor = mycon.cursor()
         import random
         check = 0
@@ -153,8 +160,9 @@ class MyApp(MDApp):
         balance = 0
         pswd = pbkdf2_sha256.hash(pswd)
         acc_string = "Your Account number is " + acc_no
-        self.dialog = MDDialog(title=acc_string, text="Please note this down for future purposes", size_hint=(0.7, 1), buttons=[
-                                MDRaisedButton(text='OK', on_release= self.close_dialog)])
+        self.dialog = MDDialog(title=acc_string, text="Please note this down for future purposes", size_hint=(0.7, 1),
+                               buttons=[
+                                   MDRaisedButton(text='OK', on_release=self.close_dialog)])
 
         self.dialog.open()
         global user
@@ -164,8 +172,7 @@ class MyApp(MDApp):
                 acc_no, name, surname, ph_no, balance, pswd, adr_no, email))
         mycon.commit()
 
-
-    def log1(self,email):
+    def log1(self, email):
         global r
         r = " "
         for i in range(0, 5):
@@ -184,7 +191,8 @@ class MyApp(MDApp):
         server.quit()
 
     def log(self, acc_no):
-        mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+        mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                database="sql12374879")
         cursor = mycon.cursor()
         st = "select EMAIL from USERS1010 where ACC_NO='%s'" % (acc_no)
         cursor.execute(st)
@@ -216,7 +224,8 @@ class MyApp(MDApp):
             return False
 
     def withdraw(self, acc_no, pswd, amt):
-        mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+        mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                database="sql12374879")
         cursor = mycon.cursor()
         cursor.execute("SELECT PASSWORD FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
         for row in cursor.fetchall():
@@ -229,7 +238,8 @@ class MyApp(MDApp):
             mycon.commit()
 
     def deposit(self, acc_no, pswd, amt):
-        mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+        mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                database="sql12374879")
         cursor = mycon.cursor()
         cursor.execute("SELECT PASSWORD FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
         for row in cursor.fetchall():
@@ -242,7 +252,8 @@ class MyApp(MDApp):
             mycon.commit()
 
     def transfer(self, acc_no, t_acc_no, pswd, amt):
-        mycon = sqltor.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q", database="sql12374879")
+        mycon = mysql.connector.connect(host="sql12.freesqldatabase.com", user="sql12374879", passwd="JwmHqPqM4q",
+                                database="sql12374879")
         cursor = mycon.cursor()
         cursor.execute("SELECT PASSWORD FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
         for row in cursor.fetchall():
