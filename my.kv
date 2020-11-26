@@ -61,6 +61,8 @@ ScreenManager:
             app.log(login_username.text)
             check=app.credential_check(login_username.text,login_password.text)
             root.manager.current="otp_login" if check == True else "login"
+            login_username.text=""
+            login_password.text=""
 
 
     MDRectangleFlatButton:
@@ -149,6 +151,12 @@ ScreenManager:
             root.manager.current='otp_signup'
             app.signup_new(firstname.text,lastname.text,password.text,phonenumber.text,aadharnumber.text,email.text)
             app.log1(email.text)
+            firstname.text=""
+            lastname.text=""
+            password.text=""
+            phonenumber.text=""
+            aadharnumber.text=""
+            email.text=""
 
     MDRectangleFlatButton:
         text:'Have an account? Login'
@@ -179,7 +187,7 @@ ScreenManager:
         on_release:
             app.log(otp.text)
             root.manager.current='otp_login'
-
+            otp.text=""
 
 
 <Home>:
@@ -376,6 +384,8 @@ ScreenManager:
         on_press:
             app.trans_dialog(login_username.text, login_password.text)
             #root.manager.current="transaction_success"
+            login_username.text=""
+            login_password.text=""
 
     MDNavigationDrawer:
         id:nav_drawer
@@ -489,6 +499,9 @@ ScreenManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.30}
         on_press:
             app.feedback_dialog(login_id.text,login_password.text,feedback.text)
+            login_id.text=""
+            login_password.text=""
+            feedback.text=""
 
     MDNavigationDrawer:
         id:nav_drawer
@@ -599,7 +612,8 @@ ScreenManager:
         on_press:
             app.success_dialog(login_username.text, login_password.text)
             #root.manager.current="transaction_success"
-
+            login_username.text=""
+            login_password.text=""
 
     MDNavigationDrawer:
         id:nav_drawer
@@ -724,6 +738,9 @@ ScreenManager:
         on_press:
             app.withdraw(login_username.text, login_password.text, login_amount.text)
             root.manager.current="transaction_success"
+            login_username.text=""
+            login_password.text=""
+            login_amount.text=""
 
     MDNavigationDrawer:
         id:nav_drawer
@@ -859,6 +876,10 @@ ScreenManager:
         on_press:
             app.transfer(login_username.text, t_login_username.text, login_password.text, login_amount.text)
             root.manager.current="transaction_success"
+            login_username.text=""
+            t_login_username.text=""
+            login_password.text=""
+            login_amount.text=""
 
 
     MDNavigationDrawer:
@@ -983,6 +1004,9 @@ ScreenManager:
         on_press:
             app.deposit(login_username.text, login_password.text, login_amount.text)
             root.manager.current="transaction_success"
+            login_username.text=""
+            login_password.text=""
+            login_amount.text=""
 
     MDNavigationDrawer:
         id:nav_drawer
@@ -1067,7 +1091,7 @@ ScreenManager:
         on_release:
             check=app.chec(otp.text)
             root.manager.current="home" if check == True else "otp_login"
-
+            otp.text=""
 
 <OTP_Transfer>:
     name:'otp_transfer'

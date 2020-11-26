@@ -19,7 +19,6 @@ from kivymd.theming import ThemableBehavior
 from kivymd.uix.list import OneLineIconListItem
 import pymysql
 
-
 class Login_Page(Screen):
     pass
 
