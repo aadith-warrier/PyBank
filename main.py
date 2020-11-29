@@ -19,6 +19,12 @@ from kivymd.theming import ThemableBehavior
 from kivymd.uix.list import OneLineIconListItem
 import pymysql
 
+class Welcome_Page(Screen):
+    pass
+
+class Admin_Page(Screen):
+    pass
+
 class Login_Page(Screen):
     pass
 
@@ -29,6 +35,8 @@ class Signup_Page(Screen):
 class OTP_Page(Screen):
     pass
 
+class Admin_Home(Screen):
+    pass
 
 class Home(Screen):
     pass
@@ -99,6 +107,12 @@ class MyApp(MDApp):
                 crypt = i
         credential_check = pbkdf2_sha256.verify(password, crypt)
         return credential_check
+
+    def credential_check_admin(self, acc_no, password):
+        if int(acc_no) == 1234567890 and str(password) == "admin@123":
+            return True
+        else:
+            return False
 
     def success_dialog(self,user_acc_no, password):
         mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
