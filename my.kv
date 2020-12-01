@@ -5,6 +5,8 @@ ScreenManager:
     Signup_Page:
     OTP_Page:
     Admin_Home:
+    Customer_Details:
+    Customer_Contact:
     Home:
     Trans_Hist:
     FB:
@@ -373,18 +375,151 @@ ScreenManager:
                     OneLineIconListItem:
                         text: 'Customer Details'
                         on_press:
-                            root.manager.current='balance_page'
+                            root.manager.current='cud_page'
 
                         IconLeftWidget:
-                            icon:'cash'
+                            icon:'format-list-numbered'
 
 
 
                     OneLineIconListItem:
                         text: 'Contact Customer'
-                        on_press:root.manager.current='transfer_page'
+                        on_press:root.manager.current='coc_page'
                         IconLeftWidget:
-                            icon:'bank-transfer'
+                            icon:'phone'
+
+<Customer_Details>:
+
+    name:'cud_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'PyBank'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        elevation:8
+
+    BoxLayout:
+        spacing:'8dp'
+        padding:'8dp'
+        orientation:'vertical'
+
+    MDTextField:
+        id:login_username
+        helper_text:"Enter Account Number"
+        helper_text_mode: "persistent"
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.65}
+        size_hint_x:None
+        icon_right: 'key-variant'
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Get Customer Details'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+        on_press:
+            app.details(login_username.text)
+            login_username.text=""
+
+    MDNavigationDrawer:
+        id:nav_drawer
+        BoxLayout:
+            spacing:'8dp'
+            padding:'8dp'
+            orientation:'vertical'
+            Image:
+                source:'python_logo.png'
+
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: 'Customer Details'
+                        on_press:
+                            root.manager.current='cud_page'
+
+                        IconLeftWidget:
+                            icon:'format-list-numbered'
+
+
+
+                    OneLineIconListItem:
+                        text: 'Contact Customer'
+                        on_press:root.manager.current='coc_page'
+                        IconLeftWidget:
+                            icon:'phone'
+
+<Customer_Contact>:
+
+    name:'coc_page'
+
+    MDToolbar:
+        pos_hint:{'center_x':0.5,'center_y':0.95}
+        title:'PyBank'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        elevation:8
+
+    BoxLayout:
+        spacing:'8dp'
+        padding:'8dp'
+        orientation:'vertical'
+
+    MDTextField:
+        id:login_username
+        helper_text:"Enter Account Number"
+        helper_text_mode: "persistent"
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.65}
+        size_hint_x:None
+        icon_right: 'key-variant'
+        width:270
+
+    MDTextField:
+        id:feedback
+        helper_text:"Feedback"
+        helper_text_mode: "persistent"
+        required:True
+        pos_hint:{'center_x':0.5,'center_y':0.52}
+        size_hint_x:None
+        multiline: True
+        icon_right: 'text'
+        width:270
+
+    MDRectangleFlatButton:
+        text:'Send Message'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.40}
+        on_press:
+            app.contact(login_username.text,feedback.text )
+            login_username.text=""
+            feedback.text=""
+
+    MDNavigationDrawer:
+        id:nav_drawer
+        BoxLayout:
+            spacing:'8dp'
+            padding:'8dp'
+            orientation:'vertical'
+            Image:
+                source:'python_logo.png'
+
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: 'Customer Details'
+                        on_press:
+                            root.manager.current='cud_page'
+
+                        IconLeftWidget:
+                            icon:'format-list-numbered'
+
+
+
+                    OneLineIconListItem:
+                        text: 'Contact Customer'
+                        on_press:root.manager.current='coc_page'
+                        IconLeftWidget:
+                            icon:'phone'
+
 <Home>:
     name:"home"
 

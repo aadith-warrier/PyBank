@@ -38,6 +38,12 @@ class OTP_Page(Screen):
 class Admin_Home(Screen):
     pass
 
+class Customer_Details(Screen):
+    pass
+
+class Customer_Contact(Screen):
+    pass
+
 class Home(Screen):
     pass
 
@@ -341,6 +347,66 @@ class MyApp(MDApp):
             return True
         else:
             return False
+
+    def details(self, acc_no):
+        mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
+        cursor = mycon.cursor()
+        cursor.execute("SELECT NAME FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        data = cursor.fetchall()
+        for row in data:
+            name = row[0]
+
+        cursor.execute("SELECT SURNAME FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        data = cursor.fetchall()
+        for row in data:
+            surname = row[0]
+
+        cursor.execute("SELECT PHONE_NUMBER FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        data = cursor.fetchall()
+        for row in data:
+            ph = row[0]
+
+        cursor.execute("SELECT AADHAR_NUMBER FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        data = cursor.fetchall()
+        for row in data:
+            aadn = row[0]
+
+        cursor.execute("SELECT EMAIL FROM USERS1010 WHERE ACC_NO LIKE '{}';".format(acc_no))
+        data = cursor.fetchall()
+        for row in data:
+            email = row[0]
+
+        c = "Customer Details"
+        b = "Account Number: " + " " + str(acc_no)
+        b = b + "\n"+ "First Name: " + " " + str(name)
+        b = b + "\n" + "Last Name: " + " " + str(surname)
+        b = b + "\n" + "Phone Number: " + " " + str(ph)
+        b = b + "\n" + "Aadhar Number: " + " " + str(aadn)
+        b = b + "\n" + "Email: " + " " + str(email)
+
+        self.dialog = MDDialog(title=str(c), text=str(b), size_hint=(0.7, 1),buttons=[
+                                   MDRaisedButton(text='OK', on_release=self.close_dialog)])
+
+        self.dialog.open()
+
+    def contact(self, acc_no, message):
+        mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
+        cursor = mycon.cursor()
+        st = "select EMAIL from USERS1010 where ACC_NO='%s'" % (acc_no)
+        cursor.execute(st)
+        data = cursor.fetchall()
+        for row in data:
+            email = row[0]
+
+        fromaddr = 'pybankcustomer@gmail.com'
+        toaddrs = str(email)
+        username = 'pybankcustomer@gmail.com'
+        password = '8uhb9ijn'
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.starttls()
+        server.login(username, password)
+        server.sendmail(fromaddr, toaddrs, str(message))
+        server.quit()
 
     def withdraw(self, acc_no, pswd, amt):
         mycon = sqltor.connect(host="localhost", user="root", passwd="markbottle$2003", database="users")
