@@ -16,9 +16,6 @@ ScreenManager:
     Transfer:
     OTP_Login:
     OTP_Signup:
-    OTP_Transfer:
-    OTP_Withdraw:
-    OTP_Deposit:
     Transaction_Success:
 
 <Welcome_Page>
@@ -152,12 +149,6 @@ ScreenManager:
             login_username.text=""
             login_password.text=""
 
-
-    MDRectangleFlatButton:
-        text:'Create Account'
-        pos_hint:{'center_x':0.5,'center_y':0.35}
-        on_press:
-            root.manager.current="signup_page"
 <Signup_Page>:
     name:'signup_page'
 
@@ -235,7 +226,6 @@ ScreenManager:
         text:'Submit'
         pos_hint:{'center_x':0.5,'center_y':0.25}
         on_release:
-            #app.log(email.text)
             root.manager.current='otp_signup'
             app.signup_new(firstname.text,lastname.text,password.text,phonenumber.text,aadharnumber.text,email.text)
             app.log1(email.text)
@@ -245,11 +235,6 @@ ScreenManager:
             phonenumber.text=""
             aadharnumber.text=""
             email.text=""
-
-    MDRectangleFlatButton:
-        text:'Have an account? Login'
-        pos_hint:{'center_x':0.5,'center_y':0.15}
-        on_press: root.manager.current="home"
 
 <OTP_Page>:
     name:'otp_page'
@@ -388,6 +373,12 @@ ScreenManager:
                         IconLeftWidget:
                             icon:'phone'
 
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='welcome_page'
+                        IconLeftWidget:
+                            icon:'logout'
+
 <Customer_Details>:
 
     name:'cud_page'
@@ -447,6 +438,12 @@ ScreenManager:
                         on_press:root.manager.current='coc_page'
                         IconLeftWidget:
                             icon:'phone'
+
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='welcome_page'
+                        IconLeftWidget:
+                            icon:'logout'
 
 <Customer_Contact>:
 
@@ -519,6 +516,12 @@ ScreenManager:
                         on_press:root.manager.current='coc_page'
                         IconLeftWidget:
                             icon:'phone'
+
+                    OneLineIconListItem:
+                        text: 'Logout'
+                        on_press:root.manager.current='welcome_page'
+                        IconLeftWidget:
+                            icon:'logout'
 
 <Home>:
     name:"home"
@@ -658,7 +661,7 @@ ScreenManager:
 
                     OneLineIconListItem:
                         text: 'Logout'
-                        on_press:root.manager.current='login_page'
+                        on_press:root.manager.current='welcome_page'
                         IconLeftWidget:
                             icon:'logout'
 
@@ -713,7 +716,6 @@ ScreenManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.42}
         on_press:
             app.trans_dialog(login_username.text, login_password.text)
-            #root.manager.current="transaction_success"
             login_username.text=""
             login_password.text=""
 
@@ -772,7 +774,7 @@ ScreenManager:
 
                     OneLineIconListItem:
                         text: 'Logout'
-                        on_press:root.manager.current='login_page'
+                        on_press:root.manager.current='welcome_page'
                         IconLeftWidget:
                             icon:'logout'
 
@@ -888,7 +890,7 @@ ScreenManager:
 
                     OneLineIconListItem:
                         text: 'Logout'
-                        on_press:root.manager.current='login_page'
+                        on_press:root.manager.current='welcome_page'
                         IconLeftWidget:
                             icon:'logout'
 
@@ -941,7 +943,6 @@ ScreenManager:
         pos_hint: {'center_x': 0.5, 'center_y': 0.42}
         on_press:
             app.success_dialog(login_username.text, login_password.text)
-            #root.manager.current="transaction_success"
             login_username.text=""
             login_password.text=""
 
@@ -961,7 +962,6 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-                            #app.success_dialog()
                         IconLeftWidget:
                             icon:'cash'
 
@@ -1000,7 +1000,7 @@ ScreenManager:
 
                     OneLineIconListItem:
                         text: 'Logout'
-                        on_press:root.manager.current='login_page'
+                        on_press:root.manager.current='welcome_page'
                         IconLeftWidget:
                             icon:'logout'
 
@@ -1088,7 +1088,6 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-                            #app.success_dialog()
 
                         IconLeftWidget:
                             icon:'cash'
@@ -1128,7 +1127,7 @@ ScreenManager:
 
                     OneLineIconListItem:
                         text: 'Logout'
-                        on_press:root.manager.current='login_page'
+                        on_press:root.manager.current='welcome_page'
                         IconLeftWidget:
                             icon:'logout'
 
@@ -1228,7 +1227,7 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-                            #app.success_dialog()
+
                         IconLeftWidget:
                             icon:'cash'
 
@@ -1354,7 +1353,7 @@ ScreenManager:
                         text: 'Balance'
                         on_press:
                             root.manager.current="balance_page"
-                            #app.success_dialog()
+
                         IconLeftWidget:
                             icon:'cash'
 
@@ -1423,59 +1422,6 @@ ScreenManager:
             root.manager.current="home" if check == True else "otp_login"
             otp.text=""
 
-<OTP_Transfer>:
-    name:'otp_transfer'
-
-    MDToolbar:
-        pos_hint:{'center_x':0.5,'center_y':0.95}
-        title:'Enter OTP'
-        elevation:8
-
-    MDTextField:
-        id:otp
-        helper_text:'Enter OTP sent to E-Mail'
-        helper_text_mode: "persistent"
-        required:True
-        password: True
-        pos_hint:{'center_x':0.5,'center_y':0.6}
-        size_hint_x:None
-        width:270
-
-    MDRectangleFlatButton:
-        text:'Verify'
-        pos_hint:{'center_x':0.5,'center_y':0.5}
-        on_release:
-            check=app.chec(otp.text)
-            root.manager.current="transaction_success" if check == True else "otp_transfer"
-
-
-<OTP_Withdraw>:
-    name:'otp_withdraw'
-
-    MDToolbar:
-        pos_hint:{'center_x':0.5,'center_y':0.95}
-        title:'Enter OTP'
-        elevation:8
-
-    MDTextField:
-        id:otp
-        helper_text:'Enter OTP sent to E-Mail'
-        helper_text_mode: "persistent"
-        required:True
-        password: True
-        pos_hint:{'center_x':0.5,'center_y':0.6}
-        size_hint_x:None
-        width:270
-
-    MDRectangleFlatButton:
-        text:'Verify'
-        pos_hint:{'center_x':0.5,'center_y':0.5}
-        on_release:
-            check=app.chec(otp.text)
-            app.withdraw(withdraw_page.login_username.text,withdraw_page.login_password.text,withdraw_page.login_amount.text)
-            root.manager.current="transaction_success" if check == True else "otp_withdraw"
-
-
 <OTP_Signup>:
     name:'otp_signup'
 
@@ -1501,31 +1447,6 @@ ScreenManager:
             check=app.chec(otp.text)
             root.manager.current="home" if check == True else "otp_signup"
 
-
-<OTP_Deposit>:
-    name:'otp_deposit'
-
-    MDToolbar:
-        pos_hint:{'center_x':0.5,'center_y':0.95}
-        title:'Enter OTP'
-        elevation:8
-
-    MDTextField:
-        id:otp
-        helper_text:'Enter OTP sent to E-Mail'
-        helper_text_mode: "persistent"
-        required:True
-        password: True
-        pos_hint:{'center_x':0.5,'center_y':0.6}
-        size_hint_x:None
-        width:270
-
-    MDRectangleFlatButton:
-        text:'Verify'
-        pos_hint:{'center_x':0.5,'center_y':0.5}
-        on_release:
-            check=app.chec(otp.text)
-            root.manager.current="transaction_success" if check == True else "otp_deposit"
 
 <Transaction_Success>:
     name:'transaction_success'

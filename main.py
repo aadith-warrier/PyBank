@@ -76,18 +76,6 @@ class OTP_Login(Screen):
 class OTP_Signup(Screen):
     pass
 
-
-class OTP_Transfer(Screen):
-    pass
-
-
-class OTP_Withdraw(Screen):
-    pass
-
-
-class OTP_Deposit(Screen):
-    pass
-
 class Transaction_Success(Screen):
     pass
 
@@ -482,6 +470,5 @@ class MyApp(MDApp):
             st1 = " INSERT INTO trans_bank50(from1,to1,amount,datetime1,balance) VALUES('{}','{}',{},'{}',{})".format(acc_no,t_acc_no,amt,now,balance)
             cursor.execute(st1)
             mycon.commit()
-
 
 MyApp().run()
