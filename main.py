@@ -1,13 +1,7 @@
 from kivymd.app import MDApp
-from kivymd.uix.label import MDLabel, MDIcon
-from kivy.uix.image import Image
 from kivymd.uix.button import MDRaisedButton
-from kivymd.uix.textfield import MDTextField, MDTextFieldRound
 from kivy.lang import Builder
-from kivymd.uix.screen import Screen
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.properties import ObjectProperty
-from kivymd.uix.datatables import MDDataTable
+from kivy.uix.screenmanager import Screen
 from kivymd.uix.dialog import MDDialog
 import mysql.connector as sqltor
 from passlib.hash import pbkdf2_sha256
@@ -15,9 +9,6 @@ import random
 import smtplib
 from email.message import EmailMessage
 from datetime import datetime
-from kivymd.theming import ThemableBehavior
-from kivymd.uix.list import OneLineIconListItem
-import pymysql
 
 class Welcome_Page(Screen):
     pass
